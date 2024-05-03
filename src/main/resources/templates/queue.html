@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Queue</title>
+</head>
+<body>
+
+<form action="/queue" method="post">
+    <label>Введите своё имя, чтобы вставть в очередь</label>
+    <input type="text" name="s"> <br />
+    <button type="submit" id="b1">Занять очередь</button>
+</form>
+
+<h1>Текущая очередь</h1>
+<tbody>
+<tr th:each="s: ${queue}">
+    <td th:text="${s}"></td><br>
+</tr>
+
+<h2>При нажатии из очереди уйдет следующий</h2>
+<form action="/queue" method="post">
+<button id="b2">Следующий</button>
+</form>
+<script>
+    document.getElementById("b2").addEventListener("click", function() {
+        makeRequest("function");
+    });
+    function makeRequest(functionId) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/queue/" + functionId, true);
+        xhr.send();
+    }
+</script>
+</body>
+</html>
